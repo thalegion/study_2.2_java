@@ -37,9 +37,9 @@ public class Main {
 
 
         //add planet image to panel
-        /*ImageIcon earthImage = Main.createThumb(earthImagePath,earthImageWidth,earthImageHeight);
+        ImageIcon earthImage = Main.createThumb(earthImagePath,earthImageWidth,earthImageHeight);
         JLabel earthLabel = new JLabel("",earthImage,JLabel.CENTER);
-        pan.add(earthLabel,BorderLayout.CENTER);*/
+        pan.add(earthLabel,BorderLayout.CENTER);
 
         ImageIcon moonImage = Main.createThumb(moonImagePath,moonImageWidth,moonImageHeight);
         JLabel moonLabel = new JLabel("",moonImage,JLabel.CENTER);
@@ -48,42 +48,21 @@ public class Main {
         fr.pack();
 
         Timer tm = new Timer(5, new ActionListener(){
-            int minX = 100,
-                maxX = 300,
-                minY = 100,
-                maxY = 300,
-                x = minX,
-                y = minY,
-                step = 1,
-                xFloat = 0,
-                yFloat = 0,
-                r = 150;
+            int minX = 180,
+                minY = 0,
+                r = 200;
 
             double i = 0.01;
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if (xFloat == 0)
-                    x += step;
-                else
-                    x -= step;
 
-                if (x >= maxX)
-                    xFloat = 1;
-                else if (x <= minX)
-                    xFloat = 0;
+                moonLabel.setLocation((int)(minX + r*Math.cos(i)/1.5),(int)(minY + r*Math.sin(i)));
 
-                if (yFloat == 0)
-                    y += step;
-                else
-                    y -= step;
-
-                if (y >= maxY)
-                    yFloat = 1;
-                else if (y <= minY)
-                    yFloat = 0;
-
-                moonLabel.setLocation((int)(minX + r*Math.cos(i)),(int)(minY + r*Math.sin(i)));
                 i += 0.01;
+                if (i % 2 == 0)
+                    System.out.println("mod 2");
+                else if (i % 1 == 0 || i % 3 == 0 )
+                    System.out.println("mod 1\3");
                 /*
                 Graphics2D gr = (Graphics2D)pan.getRootPane().getGraphics();
                 pan.update(gr);
