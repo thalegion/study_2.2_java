@@ -24,13 +24,11 @@ public class Main {
         String earthImagePath = "out/production/ssp_lab1/images/earth.png",
                 moonImagePath = "out/production/ssp_lab1/images/MOON.PNG";
 
-        JFrame fr=new JFrame("Фут Лаба 1");
-        fr.setPreferredSize( new Dimension(workspaceWidth,workspaceHeight));
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Point leftTopCorner = new Point(screenSize.width/2 - workspaceWidth/2, screenSize.height/2 - workspaceHeight/2);
-        fr.setLocation(leftTopCorner);
+        JFrame fr = new JFrame("Фут Лаба 1");
+        fr.setSize(workspaceWidth,workspaceHeight);
+        fr.setLocationRelativeTo(null);
 
-        final JPanel pan= new JPanel(new BorderLayout());
+        final JPanel pan = new JPanel(new BorderLayout());
         fr.add(pan);
         fr.setVisible(true);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
