@@ -128,7 +128,7 @@ public class lab1_11 {
                     sDir = 1;
                     stringPanel.setForeground(colorsModel.getSelectedItem().getColor());
                 }
-                sX += 1*sDir;
+                sX += sDir;
 
                 stringPanel.setLocation(sX,sY);
             }});
