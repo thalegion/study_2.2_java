@@ -1,53 +1,57 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-
-/**
- * Created by a s u s on 26.02.2017.
- */
+import java.awt.event.*;
+import java.awt.geom.*;
+import javax.swing.*;
 public class lab1_5 {
+
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Фут Лаба 1.5");
-        frame.setSize(500,500);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
 
-        Timer tm = new Timer(50, new ActionListener(){
+        JFrame fr=new JFrame("Изобразить в окне приложения отрезок, вращающийся в плоскости фрейма вокруг точки, движущейся по отрезку");
+        fr.setPreferredSize( new Dimension(600,120));
+        final JPanel pan= new JPanel();
+        fr.add(pan);
+        fr.setVisible(true);
+        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr.pack();
+
+
+
+        Timer tm= new Timer(100, new ActionListener(){
+            int i=0;
+            int q=0;
+            int z = 1;
+
             @Override
+
             public void actionPerformed(ActionEvent arg0) {
-                Graphics2D graphic = (Graphics2D)frame.getRootPane().getGraphics();
-                frame.update(graphic);
+                int start=50; int end=550;//start and end of line
+                int ls=50; int le=80;
 
-                GeneralPath pointPath = new GeneralPath();
-                pointPath.append(new Ellipse2D.Double(
-                        frame.getContentPane().getWidth()*0.25,
-                        frame.getContentPane().getHeight()/2 - 5,
-                        10,
-                        10
-                ),true);
 
-                graphic.setPaint(Color.blue);
-                graphic.fill(pointPath);
+                Graphics2D gr = (Graphics2D) pan.getRootPane().getGraphics();
+                pan.update(gr);
+                gr.setColor(Color.RED);
+                gr.draw(new Line2D.Double(start, start, end, start));
+                gr.setColor(Color.black);
+                GeneralPath path = new GeneralPath();
 
-                AffineTransform rotation = new AffineTransform();
-                rotation.rotate(0.1);
-                GeneralPath linePath = new GeneralPath();
-                linePath.append(new Line2D.Double(
-                        frame.getContentPane().getWidth()*0.25,
-                        frame.getContentPane().getHeight()/2,
-                        frame.getContentPane().getWidth() * 0.75 ,
-                        frame.getContentPane().getHeight()/2),true);
-                graphic.transform(rotation);
-                graphic.setPaint(Color.BLACK);
-                graphic.draw(linePath);
+                ls=ls+i;
+                le=le+i;
 
-            }});
+                path.append(new Line2D.Double(ls, 50, le, 80), true);
+                int x = ls, y = 50;
+                AffineTransform tranforms = AffineTransform.getRotateInstance((i) * 0.07, x, y);
+
+                if (ls==end){z = 0;} else if(ls==start){z = 1;}
+                if(z == 1){i++;}else{i--;}
+                gr.transform(tranforms);
+                gr.draw(path);
+
+            }
+        });
+
         tm.start();
+
     }
+
 }
